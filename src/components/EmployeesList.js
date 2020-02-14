@@ -23,11 +23,21 @@ export default function EmployeeList() {
       .catch(err => console.log(err));
   }, []);
 
+  const showEmployee = id => {
+    axios
+      .get("http://dummy.restapiexample.com/api/v1/delete/{id}")
+      .then(setEmployees(employees.filter(employee => employee.id === id)));
+  };
+
   function renderEmployee(employee) {
     return (
-      <Grid item xs={6} md={4} key={employee.employee_id}>
+      <Grid item xs={6} md={4} key={employee.id}>
         <Card>
-          <Link to={`/employees/${employee.employee_id}`}>
+          <Link
+            to={`/employees/${employee.id}`}
+            style={{ textDecoration: "none", color: "#050505" }}
+            onClick={() => showEmployee(employee.id)}
+          >
             <Avatar src={employee.profile_image} />
             <CardActionArea>
               <CardContent>

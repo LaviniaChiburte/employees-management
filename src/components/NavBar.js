@@ -1,5 +1,5 @@
 import React from "react";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import AppBar from "@material-ui/core/AppBar";
@@ -10,6 +10,16 @@ import InputBase from "@material-ui/core/InputBase";
 
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
+import Drawer from "@material-ui/core/Drawer";
+import Divider from "@material-ui/core/Divider";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+
+const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,8 +37,61 @@ const useStyles = makeStyles(theme => ({
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "block"
+    },
+    "&:hover": {
+      color: fade(theme.palette.common.white, 0.25)
     }
   },
+  menuTitle: {
+    textDecoration: "none",
+    textAlign: "center",
+    fontWeight: "bold",
+    color: "#050505"
+    // "&:hover": {
+    //   color: fade(theme.palette.common.black, 0.5)
+    // }
+  },
+  appBar: {
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    })
+  },
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen
+    })
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0
+  },
+  drawerPaper: {
+    width: drawerWidth,
+    // backgroundColor: "transparent",
+    backgroundColor: "#F0B49E",
+    opacity: 0.9
+  },
+  drawerHeader: {
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end"
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    }),
+    marginLeft: -drawerWidth
+  },
+
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -66,8 +129,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function PrimarySearchAppBar() {
+export default function NavBar() {
   const classes = useStyles();
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div className={classes.grow}>
@@ -78,6 +151,7 @@ export default function PrimarySearchAppBar() {
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
+            onClick={handleDrawerOpen}
           >
             <MenuIcon />
           </IconButton>
@@ -85,7 +159,7 @@ export default function PrimarySearchAppBar() {
             to="/home"
             className={classes.title}
             component={Link}
-            variant="h6"
+            variant="h4"
             noWrap
           >
             Employees
@@ -105,17 +179,71 @@ export default function PrimarySearchAppBar() {
           </div>
           <div className={classes.grow} />
 
-          <Button to="/employees" component={Link} color="inherit">
+          <Button
+            to="/employees"
+            component={Link}
+            color="inherit"
+            className={classes.title}
+          >
             List
           </Button>
-          <Button to="/table" component={Link} color="inherit">
+          <Button
+            to="/table"
+            component={Link}
+            color="inherit"
+            className={classes.title}
+          >
             Table
           </Button>
-          <Button to="/managing" component={Link} color="inherit">
+          <Button
+            to="/managing"
+            component={Link}
+            color="inherit"
+            className={classes.title}
+          >
             Managing
           </Button>
         </Toolbar>
       </AppBar>
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="left"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === "ltr" ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
+          </IconButton>
+        </div>
+        <Divider />
+        <List className={classes.menuTitle}>
+          <Button
+            to="/employees"
+            component={Link}
+            variant="large"
+            className={classes.menuTitle}
+          >
+            Employees List
+          </Button>
+
+          <Button
+            to="/managing"
+            component={Link}
+            variant="large"
+            className={classes.menuTitle}
+          >
+            Managing Enployees
+          </Button>
+        </List>
+      </Drawer>
     </div>
   );
 }

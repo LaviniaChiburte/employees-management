@@ -37,7 +37,6 @@ const useStyles = makeStyles(theme => ({
   },
   absolute: {
     position: "absolute",
-    // bottom: theme.spacing(2),
     right: theme.spacing(3),
     color: "#050505",
     backgroundColor: "#F0B49E"
