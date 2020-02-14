@@ -22,6 +22,8 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2)
   },
   title: {
+    textDecoration: "none",
+    color: "white",
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "block"
@@ -79,7 +81,13 @@ export default function PrimarySearchAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography
+            to="/home"
+            className={classes.title}
+            component={Link}
+            variant="h6"
+            noWrap
+          >
             Employees
           </Typography>
           <div className={classes.search}>
@@ -99,6 +107,9 @@ export default function PrimarySearchAppBar() {
 
           <Button to="/employees" component={Link} color="inherit">
             List
+          </Button>
+          <Button to="/table" component={Link} color="inherit">
+            Table
           </Button>
           <Button to="/managing" component={Link} color="inherit">
             Managing
