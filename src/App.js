@@ -7,12 +7,12 @@ import {
 } from "react-router-dom";
 import NavBar from "./components/NavBar";
 // import Employee from "./components/Employee";
-import EmployeeList from "./components/EmployeeList";
+import EmployeesList from "./components/EmployeesList";
 import EmployeeTable from "./components/EmployeeTable";
 import EmployeesTable from "./components/EmployeesTable";
 import Home from "./components/Home";
 
-import "./App.css";
+// import "./App.css";
 
 function App() {
   return (
@@ -21,16 +21,15 @@ function App() {
       <Route path="/home">
         <Home />
       </Route>
-
       <Switch>
         <Route path="/employees">
-          <EmployeeList />
+          <EmployeesList />
         </Route>
         <Route path="/table">
-          <EmployeesTable />
+          <EmployeeTable />
         </Route>
         <Route path="/managing">
-          <EmployeeTable />
+          <EmployeesTable />
         </Route>
         <Redirect to="/home" />
       </Switch>

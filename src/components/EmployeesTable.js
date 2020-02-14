@@ -15,29 +15,16 @@ import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-
-const columns = [
-  { id: "edit", label: "Edit", align: "left" },
-  { id: "delete", label: "Delete", align: "left" },
-  { id: "name", label: "Name" },
-  { id: "age", label: "Age" },
-  {
-    id: "salary",
-    label: "Salary",
-    align: "right",
-    format: value => value.toFixed(1)
-  }
-];
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "100%"
+    width: "100%",
+    overflow: "hidden"
   },
   form: {
-    margin: "3vh",
-    padding: "2vw",
+    margin: "2vh",
+    padding: "1vw",
     textDecoration: "none"
   },
   container: {
@@ -172,14 +159,6 @@ export default function EmployeesTable() {
           value={employees.employee_salary}
           onChange={onChange}
         />
-        {/* <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          value="Submit"
-        >
-          Add
-        </Button> */}
 
         <Tooltip title="Add Employee" aria-label="add">
           <Fab
