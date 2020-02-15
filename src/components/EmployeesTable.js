@@ -67,7 +67,6 @@ export default function EmployeesTable() {
     axios
       .get("http://dummy.restapiexample.com/api/v1/employees")
       .then(res => {
-        // console.log(res);
         setEmployees(res.data.data);
         console.log(res.data.data);
       })
@@ -84,8 +83,6 @@ export default function EmployeesTable() {
       };
     })
   );
-
-  // console.log(rows);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -108,13 +105,14 @@ export default function EmployeesTable() {
   };
 
   const onDeleteRow = id => {
+    console.log(id);
     axios
       .delete(`http://dummy.restapiexample.com/api/v1/delete/${id}`)
       .then(setEmployees(employees.filter(employee => employee.id !== id)))
       .then(res => console.log(res.data));
   };
 
-  const onEditeRow = (id, e) => {
+  const onEditRow = (id, e) => {
     console.log(id);
     const employee = {
       name: employees.employee_name,
@@ -230,7 +228,7 @@ export default function EmployeesTable() {
                       <Tooltip title="Edit">
                         <IconButton
                           aria-label="edit"
-                          onClick={() => onEditeRow(row.id)}
+                          onClick={() => onEditRow(row.id)}
                         >
                           <EditIcon />
                         </IconButton>
