@@ -54,8 +54,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function EmployeesTable() {
   const [employees, setEmployees] = useState([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [employee_name, setName] = useState("");
+  const [employee_age, setAge] = useState("");
+  const [employee_salary, setSalary] = useState("");
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const classes = useStyles();
 
@@ -81,29 +85,31 @@ export default function EmployeesTable() {
     })
   );
 
-  console.log(rows);
+  // console.log(rows);
 
-  const addEmployee = employee => {
-    employee.preventDefault();
-    employee = {
-      employee_name: employee.name,
-      employee_age: employee.age,
-      employee_salary: employee.salary
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log({ employee_name, employee_age, employee_salary });
+
+    const newData = {
+      name: `${employee_name}`,
+      salary: `${employee_salary}`,
+      age: `${employee_age}`
     };
-    console.log(employee);
     axios
-      .post("http://dummy.restapiexample.com/api/v1/create", { employee })
-      .then(setEmployees([employee, ...employees]))
+      .post("http://dummy.restapiexample.com/api/v1/create", newData)
+      .then(
+        setEmployees([
+          { employee_name, employee_age, employee_salary },
+          ...employees
+        ])
+      )
       .then(res => console.log(res.data));
-  };
-
-  const onChange = e => {
-    [e.target.name] = e.target.value;
   };
 
   const onDeleteRow = id => {
     axios
-      .delete("http://dummy.restapiexample.com/api/v1/delete/{id}")
+      .delete(`http://dummy.restapiexample.com/api/v1/delete/${id}`)
       .then(setEmployees(employees.filter(employee => employee.id !== id)))
       .then(res => console.log(res.data));
   };
@@ -134,29 +140,29 @@ export default function EmployeesTable() {
 
   return (
     <Paper className={classes.root}>
-      <form onSubmit={addEmployee} className={classes.form}>
+      <form onSubmit={handleSubmit} className={classes.form}>
         <TextField
           id="employee_name"
-          title="employee_name"
+          name="employee_name"
           placeholder="name"
           value={employees.employee_name}
-          onChange={onChange}
+          onChange={e => setName(e.target.value)}
         />
 
         <TextField
           id="employee_age"
-          title="employee_age"
+          name="employee_age"
           placeholder="age"
           value={employees.employee_age}
-          onChange={onChange}
+          onChange={e => setAge(e.target.value)}
         />
 
         <TextField
           id="employee_salary"
-          title="employee_salary"
+          name="employee_salary"
           placeholder="salary"
           value={employees.employee_salary}
-          onChange={onChange}
+          onChange={e => setSalary(e.target.value)}
         />
 
         <Tooltip title="Add Employee" aria-label="add">

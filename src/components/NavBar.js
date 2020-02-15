@@ -228,7 +228,7 @@ export default function NavBar() {
           <Button
             to="/employees"
             component={Link}
-            variant="large"
+            size="large"
             className={classes.menuTitle}
           >
             Employees List
@@ -237,7 +237,7 @@ export default function NavBar() {
           <Button
             to="/managing"
             component={Link}
-            variant="large"
+            size="large"
             className={classes.menuTitle}
           >
             Managing Enployees

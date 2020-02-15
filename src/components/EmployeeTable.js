@@ -52,17 +52,25 @@ export default function MaterialTableDemo() {
       ]}
       data={dataEmployee}
       editable={{
-        onRowAdd: newData =>
-          new Promise(resolve => {
-            setTimeout(() => {
-              resolve();
-              setEmployee(prevState => {
-                const data = [...prevState.data];
-                data.push(newData);
-                return { ...prevState, data };
-              });
-            }, 600);
-          }),
+        // onRowAdd: newData =>
+        //   new Promise(resolve => {
+        //     setTimeout(() => {
+        //       resolve();
+        //       setEmployee(prevState => {
+        //         console.log(newData);
+        //         console.log(prevState);
+
+        //         return {
+        //           ...prevState,
+        //          [ {employee_name: newData.name,
+        //             employee_age:newData.age,
+        //             employee_salary: newDara.salary
+
+        //           }]
+        //            }
+        //       });
+        //     }, 600);
+        //   }),
         onRowUpdate: (newData, oldData) =>
           new Promise(resolve => {
             setTimeout(() => {
