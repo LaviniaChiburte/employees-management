@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import EmployeesList from "./components/EmployeesList";
-import EmployeesTableClassic from "./components/EmployeesTable";
+// import EmployeesTableClassic from "./components/EmployeesTable";
 import Home from "./components/Home";
 
 import EmployeesTableRedux from "./components/EmployeesTableRedux";

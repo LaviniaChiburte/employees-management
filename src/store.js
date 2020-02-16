@@ -4,7 +4,6 @@ import { createStore } from "redux";
 export const EMPLOYEES_LOADED = "EMPLOYEES_LOADED";
 export const EMPLOYEE_ADDED = "EMPLOYEE_ADDED";
 export const EMPLOYEE_DELETED = "EMPLOYEE_DELETED";
-export const EMPLOYEE_UPDATED = "EMPLOYEE_UPDATED";
 export const EMPLOYEE_SELECTED = "EMPLOYEE_SELECTED";
 
 //Reducer
