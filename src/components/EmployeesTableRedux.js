@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -19,6 +19,10 @@ import AddIcon from "@material-ui/icons/Add";
 import TextField from "@material-ui/core/TextField";
 import CheckIcon from "@material-ui/icons/Check";
 import ClearIcon from "@material-ui/icons/Clear";
+
+import { EMPLOYEES_LOADED } from "../store";
+import { EMPLOYEE_ADDED } from "../store";
+import { EMPLOYEE_DELETED } from "../store";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,7 +51,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function EmployeesTable() {
-  const [employees, setEmployees] = useState([]);
+  const dispatch = useDispatch();
+
+  const employees = useSelector(state => state.employees);
+
   const [employee_name, setName] = useState("");
   const [employee_age, setAge] = useState("");
   const [employee_salary, setSalary] = useState("");
@@ -64,11 +71,13 @@ export default function EmployeesTable() {
     axios
       .get("http://dummy.restapiexample.com/api/v1/employees")
       .then(res => {
-        console.log(res);
-        setEmployees(res.data.data);
+        dispatch({
+          type: EMPLOYEES_LOADED,
+          payload: { employees: res.data.data }
+        });
       })
       .catch(err => console.log(err));
-  }, []);
+  }, [dispatch]);
 
   const rows = employees.map(function(employee) {
     return {
@@ -89,12 +98,14 @@ export default function EmployeesTable() {
     };
     axios
       .post("http://dummy.restapiexample.com/api/v1/create", newData)
-      .then(response =>
-        setEmployees([
-          { employee_name, employee_age, employee_salary },
-          ...employees
-        ])
-      )
+      .then(() => {
+        dispatch({
+          type: EMPLOYEE_ADDED,
+          payload: {
+            employee: { employee_name, employee_age, employee_salary }
+          }
+        });
+      })
       .catch(console.log);
   };
 
@@ -103,7 +114,12 @@ export default function EmployeesTable() {
     axios
       .delete(`http://dummy.restapiexample.com/api/v1/delete/${id}`)
       .then(() =>
-        setEmployees(employees.filter(employee => employee.id !== id))
+        dispatch({
+          type: EMPLOYEE_DELETED,
+          payload: {
+            idEmployee: id
+          }
+        })
       )
       .catch(console.log);
   };

@@ -13,9 +13,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import Drawer from "@material-ui/core/Drawer";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
@@ -47,9 +45,6 @@ const useStyles = makeStyles(theme => ({
     textAlign: "center",
     fontWeight: "bold",
     color: "#050505"
-    // "&:hover": {
-    //   color: fade(theme.palette.common.black, 0.5)
-    // }
   },
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
@@ -71,7 +66,6 @@ const useStyles = makeStyles(theme => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    // backgroundColor: "transparent",
     backgroundColor: "#F0B49E",
     opacity: 0.9
   },
@@ -156,7 +150,7 @@ export default function NavBar() {
             <MenuIcon />
           </IconButton>
           <Typography
-            to="/home"
+            to="/home-employees"
             className={classes.title}
             component={Link}
             variant="h4"
@@ -187,16 +181,9 @@ export default function NavBar() {
           >
             List
           </Button>
+
           <Button
-            to="/table"
-            component={Link}
-            color="inherit"
-            className={classes.title}
-          >
-            Table
-          </Button>
-          <Button
-            to="/managing"
+            to="/managing-redux"
             component={Link}
             color="inherit"
             className={classes.title}
@@ -235,12 +222,20 @@ export default function NavBar() {
           </Button>
 
           <Button
-            to="/managing"
+            to="/managing-redux"
             component={Link}
             size="large"
             className={classes.menuTitle}
           >
-            Managing Enployees
+            Managing Employees
+          </Button>
+          <Button
+            to="/home-employees"
+            component={Link}
+            size="large"
+            className={classes.menuTitle}
+          >
+            Home
           </Button>
         </List>
       </Drawer>

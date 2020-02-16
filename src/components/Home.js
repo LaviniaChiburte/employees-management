@@ -19,7 +19,6 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    // opacity: 0.6,
     zIndex: -1
   },
   pageButton: {
@@ -42,7 +41,7 @@ export default function Home() {
         component={Link}
         to="/employees"
       >
-        View Employees
+        Employees List
       </Button>
       <Button
         variant="contained"
@@ -50,7 +49,7 @@ export default function Home() {
         color="secondary"
         className={classes.pageButton}
         component={Link}
-        to="/managing"
+        to="/managing-redux"
       >
         Manage Team
       </Button>

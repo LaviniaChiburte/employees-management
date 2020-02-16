@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
@@ -10,23 +10,38 @@ import CardContent from "@material-ui/core/CardContent";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 
+import { useDispatch, useSelector } from "react-redux";
+import { EMPLOYEES_LOADED } from "../store";
+export const EMPLOYEE_SELECTED = "EMPLOYEE_SELECTED";
+
 export default function EmployeeList() {
-  const [employees, setEmployees] = useState([]);
+  const dispatch = useDispatch();
+  const employees = useSelector(state => state.employees);
 
   useEffect(() => {
     axios
       .get("http://dummy.restapiexample.com/api/v1/employees")
       .then(res => {
-        console.log(res);
-        setEmployees(res.data.data);
+        dispatch({
+          type: EMPLOYEES_LOADED,
+          payload: { employees: res.data.data }
+        });
       })
       .catch(err => console.log(err));
-  }, []);
+  }, [dispatch]);
 
   const showEmployee = id => {
     axios
-      .get("http://dummy.restapiexample.com/api/v1/delete/{id}")
-      .then(setEmployees(employees.filter(employee => employee.id === id)));
+      .get(`http://dummy.restapiexample.com/api/v1/employee/${id}`)
+      .then(() =>
+        dispatch({
+          type: EMPLOYEE_SELECTED,
+          payload: {
+            idEmployee: id
+          }
+        })
+      )
+      .catch(console.log);
   };
 
   function renderEmployee(employee) {

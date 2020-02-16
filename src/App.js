@@ -6,11 +6,11 @@ import {
   Redirect
 } from "react-router-dom";
 import NavBar from "./components/NavBar";
-// import Employee from "./components/Employee";
 import EmployeesList from "./components/EmployeesList";
-import EmployeeTable from "./components/EmployeeTable";
-import EmployeesTable from "./components/EmployeesTable";
+import EmployeesTableClassic from "./components/EmployeesTable";
 import Home from "./components/Home";
+
+import EmployeesTableRedux from "./components/EmployeesTableRedux";
 
 // import "./App.css";
 
@@ -18,20 +18,23 @@ function App() {
   return (
     <Router>
       <NavBar />
-      <Route path="/home">
+      <Route path="/home-employees">
         <Home />
       </Route>
       <Switch>
         <Route path="/employees">
           <EmployeesList />
         </Route>
-        <Route path="/table">
-          <EmployeeTable />
+
+        {/* <Route path="/managing">
+          <EmployeesTableClassic />
+        </Route> */}
+
+        <Route to="/managing-redux">
+          <EmployeesTableRedux />
         </Route>
-        <Route path="/managing">
-          <EmployeesTable />
-        </Route>
-        <Redirect to="/home" />
+
+        <Redirect to="/home-employees" />
       </Switch>
     </Router>
   );
