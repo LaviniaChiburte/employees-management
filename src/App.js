@@ -18,21 +18,14 @@ function App() {
   return (
     <Router>
       <NavBar />
-      <Route path="/home-employees">
-        <Home />
-      </Route>
+      <Route exact path="/home-employees" component={Home} />
+
       <Switch>
-        <Route path="/employees">
-          <EmployeesList />
-        </Route>
+        <Route exact path="/employees" component={EmployeesList} />
 
-        {/* <Route path="/managing">
-          <EmployeesTableClassic />
-        </Route> */}
+        {/* <Route path="/managing" component={EmployeesTableClassic}/> */}
 
-        <Route to="/managing-redux">
-          <EmployeesTableRedux />
-        </Route>
+        <Route path="/managing-redux" component={EmployeesTableRedux} />
 
         <Redirect to="/home-employees" />
       </Switch>
